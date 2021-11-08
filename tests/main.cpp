@@ -11,7 +11,7 @@ int main(int argc, char **argv) {
     size_t size;
     clock_t begin = clock();
     char *mat_exp = input_array_from_file("./test_data/test.txt", &size);
-    printf("%d\n",size);
+    printf("%ld\n",size);
     
     char * result  = find_longest_sequence(mat_exp, size, 4);
     clock_t end = clock();

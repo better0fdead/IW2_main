@@ -1,7 +1,7 @@
 #include "array_search.h"
 #include <string.h>
 
-int free_array(char *array) {
+void free_array(char *array) {
     free(array);
 }
 

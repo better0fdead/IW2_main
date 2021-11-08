@@ -8,7 +8,7 @@ typedef struct {
 } message_buff;
 
 
-int free_array(char *array, size_t size) {
+void free_array(char *array, size_t size) {
     free(array);
 }
 
@@ -163,7 +163,8 @@ char *find_longest_sequence(char *array, size_t size, size_t mlen) {
                 free(array);
                 return NULL;
             }
-            snprintf(longest_word, strlen(q_buff.mtext) + 1, "%s", q_buff.mtext);
+            snprintf(longest_word,
+            strlen(q_buff.mtext) + 1, "%s", q_buff.mtext);
             max_len = strlen(q_buff.mtext);
         }
     }

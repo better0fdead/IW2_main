@@ -8,7 +8,7 @@ TEST(print_matrix, print_matrix) {
     double timer = 0;
     size_t size;
     char *mat_exp = input_array_from_file("./test_data/test.txt", &size);
-    printf("%d\n",size);
+    printf("%ld\n",size);
     clock_t begin = clock();
     char * result  = find_longest_sequence(mat_exp, size, 4);
     clock_t end = clock();

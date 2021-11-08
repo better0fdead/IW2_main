@@ -3,8 +3,8 @@ project(IW_2 C CXX)
 
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -g")
-set(CMAKE_CXX_FLAGS "${CMAKE_C_FLAGS} -g")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Werror -pthread -pedantic -g --coverage")
+set(CMAKE_CXX_FLAGS "${CMAKE_C_FLAGS} -Wall -Werror -pthread -pedantic -g --coverage")
 
 set(SOURCES_FOR_STATIC libs/array_search/src/array_search.c)
 set(SOURCES_FOR_SHARED libs/array_search_forked/src/array_search_forked.c)
