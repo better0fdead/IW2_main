@@ -1,16 +1,16 @@
 #include "array_search.h"
 #include <string.h>
 
-int free_array(char *array){
+int free_array(char *array) {
     free(array);
 }
 
-char *create_array(size_t size){
+char *create_array(size_t size) {
     char *array = (char *)malloc(sizeof(char) * size);
     return array;
 }
 
-char *input_array_from_file(const char *file_path, size_t *asize){
+char *input_array_from_file(const char *file_path, size_t *asize) {
     if (file_path == NULL) {
         return NULL;
     }
@@ -38,8 +38,7 @@ char *input_array_from_file(const char *file_path, size_t *asize){
     return array;
 }
 
-char *find_sequence(char *array, size_t size, int n)
-{
+char *find_sequence(char *array, size_t size, int n) {
     int seq_start = 0;
     int pos_start = 0;
     int pos_end = 0;
@@ -49,12 +48,10 @@ char *find_sequence(char *array, size_t size, int n)
     int max_len = 0;
     int sum = 0;
 
-    for (int i = 0; i<size; i++)
+    for (int i = 0; i < size; i++)
     {
-        if (((array[i] - '0') > -1) && ((array[i] - '0') < 10))
-        {
-            if (seq_start == 0)
-            {
+        if (((array[i] - '0') > -1) && ((array[i] - '0') < 10)) {
+            if (seq_start == 0){
                 seq_start = 1;
                 pos_start = i;
             }
@@ -62,13 +59,11 @@ char *find_sequence(char *array, size_t size, int n)
         }
         else
         {
-            if(seq_start == 1)
-            {
+            if(seq_start == 1) {
                 seq_start = 0;
                 pos_end = i - 1;
                 len = pos_end - pos_start;
-                if (len > max_len && sum <= n)
-                {
+                if (len > max_len && sum <= n) {
                     max_len = len;
                     max_pos_s = pos_start;
                     max_pos_e = pos_end;
@@ -78,11 +73,9 @@ char *find_sequence(char *array, size_t size, int n)
             }
         }
     }
-    printf("\npos_start:%d", max_pos_s);
-    printf(" pos_end%d\n", max_pos_e);
-    char *current_word = (char *) calloc(max_pos_e - max_pos_s + 2, sizeof(char));
-    for(int j = max_pos_s; j <= max_pos_e; j++)
-    {
+    char *current_word = (char *) 
+    calloc(max_pos_e - max_pos_s + 2, sizeof(char));
+    for(int j = max_pos_s; j <= max_pos_e; j++) {
         current_word[j - max_pos_s] = array[j];
     }
     current_word[max_pos_e-max_pos_s + 1] ='\0';
