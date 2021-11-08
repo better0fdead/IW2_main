@@ -13,12 +13,13 @@ jobs:
 
       - name: install references
         run: sudo apt-get install libgtest-dev -y && cd /usr/src/gtest && sudo cmake CMakeLists.txt && sudo make && cd lib && sudo cp *.a /usr/lib && sudo apt-get install -y cppcheck && sudo apt-get install valgrind && sudo apt-get install -y lcov && sudo apt-get install -y gcovr
-      
-      - name: valgrind
-        run: cd build && valgrind --tool=memcheck --leak-check=full --show-leak-kinds=all -s -q ./main ./tests_forked
+
         
       - name: build
         run: mkdir build && cd build && cmake .. && make && cd ../
+
+      - name: valgrind
+        run: cd build && valgrind --tool=memcheck --leak-check=full --show-leak-kinds=all -s -q ./main ./tests_forked
 
       - name: static analys
         run: cppcheck -q --enable=all --platform=unix64 --check-config --suppress=missingIncludeSystem libs tests
