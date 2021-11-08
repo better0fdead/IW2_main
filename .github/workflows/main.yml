@@ -22,7 +22,7 @@ jobs:
         run:  valgrind --tool=memcheck --leak-check=full --show-leak-kinds=all -s -q ./main ./tests_forked
 
       - name: static analys
-        run: cppcheck -q --enable=all --platform=unix64 --check-config --suppress=missingInclude libs tests
+        run: cppcheck -q --enable=all --platform=unix64 --check-config --suppress=missingIncludeSystem libs tests
 
       - name: tests
         run:  ./main && ./tests_forked && lcov -t "IW_2" -o coverage.txt -c -d . && cp coverage.txt ../
