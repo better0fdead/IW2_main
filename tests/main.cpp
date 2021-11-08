@@ -10,7 +10,7 @@ int main(int argc, char **argv) {
     double timer = 0;
     size_t size;
     clock_t begin = clock();
-    char *mat_exp = input_array_from_file("./matrix_data/matrix_3_2.txt", &size);
+    char *mat_exp = input_array_from_file("./test_data/test.txt", &size);
     printf("%d\n",size);
     
     char * result  = find_longest_sequence(mat_exp, size, 4);
