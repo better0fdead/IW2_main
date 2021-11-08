@@ -18,7 +18,7 @@ jobs:
         run: cmake . && make 
         
       - name: static analysis
-        run: cpplint --filter="-legal/copyright,-build/include_subdir,-readability/casting,-runtime/arrays" libs/find_words/src/* libs/array_search/include/* libs/array_search_forked/src/* libs/array_search_forked/include/* && cppcheck libs/array_search/src/* libs/array_search/include/* libs/array_search_forked/src/* libs/array_search_forked/include/*
+        run: cpplint --filter="-legal/copyright,-build/include_subdir,-readability/casting,-runtime/arrays" libs/array_search/src/* libs/array_search/include/* libs/array_search_forked/src/* libs/array_search_forked/include/* && cppcheck libs/array_search/src/* libs/array_search/include/* libs/array_search_forked/src/* libs/array_search_forked/include/*
         
       - name: tests_under_valgrind
         run: valgrind --leak-check=full --track-origins=yes ./main && valgrind --leak-check=full --track-origins=yes --child-silent-after-fork=yes  ./tests_forked
