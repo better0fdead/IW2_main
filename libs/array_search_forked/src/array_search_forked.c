@@ -48,7 +48,8 @@ char *input_array_from_file(const char *file_path, size_t *asize) {
 
 
 int find_sequence
-(char *array, size_t size, int n, size_t number_of_procs, int q_id, size_t current_procs_numb) {
+(char *array, size_t size, int n, size_t number_of_procs,
+int q_id, size_t current_procs_numb) {
     int seq_start = 0;
     int pos_start = 0;
     int pos_end = 0;
@@ -75,12 +76,10 @@ int find_sequence
         j++;
         skipped_letters_of_word_on_border++;
     }
-    
     if (current_procs_numb == number_of_procs - 1) {
         skipped_letters_of_word_on_border = 0;
     }
 
-    
     while (j < right_border + skipped_letters_of_word_on_border) {
         if (((array[j] - '0') > -1) && ((array[j] - '0') < 10)) {
             if (seq_start == 0) {
@@ -138,7 +137,7 @@ char *find_longest_sequence(char *array, size_t size, size_t mlen) {
         if (pids[k] == 0) {
             find_sequence(array, size, mlen, number_of_procs, q_id, k);
         }
-    }    
+    }
     for (size_t i = 0; i < number_of_procs; ++i) {
         if (waitpid(pids[i], &status, 0) != pids[i]) {
             return NULL;
