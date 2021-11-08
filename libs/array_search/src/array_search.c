@@ -48,18 +48,15 @@ char *find_sequence(char *array, size_t size, int n) {
     int max_len = 0;
     int sum = 0;
 
-    for (int i = 0; i < size; i++)
-    {
+    for (int i = 0; i < size; i++) {
         if (((array[i] - '0') > -1) && ((array[i] - '0') < 10)) {
-            if (seq_start == 0){
+            if (seq_start == 0) {
                 seq_start = 1;
                 pos_start = i;
             }
             sum += array[i] - '0';
-        }
-        else
-        {
-            if(seq_start == 1) {
+        } else {
+            if (seq_start == 1) {
                 seq_start = 0;
                 pos_end = i - 1;
                 len = pos_end - pos_start;
@@ -73,16 +70,16 @@ char *find_sequence(char *array, size_t size, int n) {
             }
         }
     }
-    char *current_word = (char *) 
+    char *current_word = (char *)
     calloc(max_pos_e - max_pos_s + 2, sizeof(char));
-    for(int j = max_pos_s; j <= max_pos_e; j++) {
+    for (int j = max_pos_s; j <= max_pos_e; j++) {
         current_word[j - max_pos_s] = array[j];
     }
     current_word[max_pos_e-max_pos_s + 1] ='\0';
     return current_word;
 }
 
-char *find_longest_sequence(char *array, size_t size, size_t mlen){
+char *find_longest_sequence(char *array, size_t size, size_t mlen) {
     if (array == NULL) {
         return NULL;
     }

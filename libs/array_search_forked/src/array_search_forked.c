@@ -8,16 +8,16 @@ typedef struct {
 } message_buff;
 
 
-int free_array(char *array, size_t size){
+int free_array(char *array, size_t size) {
     free(array);
 }
 
-char *create_array(size_t size){
+char *create_array(size_t size) {
     char *array = (char *)malloc(sizeof(char) * size);
     return array;
 }
 
-char *input_array_from_file(const char *file_path, size_t *asize){
+char *input_array_from_file(const char *file_path, size_t *asize) {
     if (file_path == NULL) {
         return NULL;
     }
@@ -47,8 +47,8 @@ char *input_array_from_file(const char *file_path, size_t *asize){
 
 
 
-int find_sequence(char *array, size_t size, int n, size_t number_of_procs, int q_id, size_t current_procs_numb)
-{
+int find_sequence
+(char *array, size_t size, int n, size_t number_of_procs, int q_id, size_t current_procs_numb) {
     int seq_start = 0;
     int pos_start = 0;
     int pos_end = 0;
@@ -67,7 +67,6 @@ int find_sequence(char *array, size_t size, int n, size_t number_of_procs, int q
     } else {
         right_border = size;
     }
-    
     if (j != 0) {
         while (((array[j] - '0') > -1) && ((array[j] - '0') < 10)) {
             j++;
@@ -89,10 +88,8 @@ int find_sequence(char *array, size_t size, int n, size_t number_of_procs, int q
                 pos_start = j;
             }
             sum += array[j] - '0';
-        }
-        else
-        {
-            if(seq_start == 1) {
+        } else {
+            if (seq_start == 1) {
                 seq_start = 0;
                 pos_end = j - 1;
                 len = pos_end - pos_start;
@@ -109,15 +106,17 @@ int find_sequence(char *array, size_t size, int n, size_t number_of_procs, int q
     }
     printf("\npos_start:%d", max_pos_s);
     printf(" pos_end:%d\n", max_pos_e);
-    char *current_word = (char *) calloc(max_pos_e - max_pos_s + 2, sizeof(char));
-    for(int j = max_pos_s; j <= max_pos_e; j++) {
+    char *current_word = (char *)
+    calloc(max_pos_e - max_pos_s + 2, sizeof(char));
+    for (int j = max_pos_s; j <= max_pos_e; j++) {
         current_word[j - max_pos_s] = array[j];
     }
     current_word[max_pos_e-max_pos_s + 1] ='\0';
     message_buff q_buff = {1, ""};
     strcpy(q_buff.mtext, current_word);
 
-    if (msgsnd(q_id, (struct msgbuf *) &q_buff, strlen(q_buff.mtext) + 1, 0) == -1) {
+    if (msgsnd(q_id, (struct msgbuf *) &q_buff,
+    strlen(q_buff.mtext) + 1, 0) == -1) {
         free(array);
         free(current_word);
         exit(1);
@@ -127,7 +126,7 @@ int find_sequence(char *array, size_t size, int n, size_t number_of_procs, int q
     exit(1);
 }
 
-char *find_longest_sequence(char *array, size_t size, size_t mlen){
+char *find_longest_sequence(char *array, size_t size, size_t mlen) {
     size_t number_of_procs = sysconf(_SC_NPROCESSORS_ONLN);
     int status = 0;
     key_t key = IPC_PRIVATE;
@@ -139,8 +138,7 @@ char *find_longest_sequence(char *array, size_t size, size_t mlen){
         if (pids[k] == 0) {
             find_sequence(array, size, mlen, number_of_procs, q_id, k);
         }
-    }
-    
+    }    
     for (size_t i = 0; i < number_of_procs; ++i) {
         if (waitpid(pids[i], &status, 0) != pids[i]) {
             return NULL;

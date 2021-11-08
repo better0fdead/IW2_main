@@ -1,5 +1,5 @@
-#ifndef LIBS_ARRAY_SEARCH_INCLUDE_ARRAY_SEARCH_H_ 
-#define LIBS_ARRAY_SEARCH_INCLUDE_ARRAY_SEARCH_H_ 
+#ifndef LIBS_ARRAY_SEARCH_INCLUDE_ARRAY_SEARCH_H_
+#define LIBS_ARRAY_SEARCH_INCLUDE_ARRAY_SEARCH_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -19,4 +19,4 @@ char *find_longest_sequence(char *array, size_t size, size_t mlen);
 }
 #endif
 
-#endif  // LIBS_ARRAY_SEARCH_INCLUDE_ARRAY_SEARCH_H_ 
+#endif  // LIBS_ARRAY_SEARCH_INCLUDE_ARRAY_SEARCH_H_
