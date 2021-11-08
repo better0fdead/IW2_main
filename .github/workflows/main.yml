@@ -16,15 +16,15 @@ jobs:
 
         
       - name: build
-        run: mkdir build && cd build && cmake .. && make && cd ../
+        run: cmake . && make 
 
       - name: valgrind
-        run: cd build && valgrind --tool=memcheck --leak-check=full --show-leak-kinds=all -s -q ./main ./tests_forked
+        run:  valgrind --tool=memcheck --leak-check=full --show-leak-kinds=all -s -q ./main ./tests_forked
 
       - name: static analys
         run: cppcheck -q --enable=all --platform=unix64 --check-config --suppress=missingIncludeSystem libs tests
 
       - name: tests
-        run: cd build && ./main && ./tests_forked && lcov -t "IW_2" -o coverage.txt -c -d . && cp coverage.txt ../
+        run:  ./main && ./tests_forked && lcov -t "IW_2" -o coverage.txt -c -d . && cp coverage.txt ../
 
       
