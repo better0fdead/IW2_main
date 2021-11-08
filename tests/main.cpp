@@ -13,7 +13,7 @@ int main(int argc, char **argv) {
     char *mat_exp = input_array_from_file("./matrix_data/matrix_3_2.txt", &size);
     printf("%d\n",size);
     
-    char * result  = find_longest_sequence(mat_exp, "./matrix_data/test_mat.txt", size, 4);
+    char * result  = find_longest_sequence(mat_exp, size, 4);
     clock_t end = clock();
     timer += (double) (end - begin) / CLOCKS_PER_SEC;
     std::cout << "average time: " << timer << std::endl;
