@@ -3,7 +3,7 @@
 
 
 typedef struct {
-    long mtype;
+    size_t mtype;
     char mtext[1100];
 } message_buff;
 
@@ -103,8 +103,6 @@ int q_id, size_t current_procs_numb) {
         }
         j++;
     }
-    printf("\npos_start:%d", max_pos_s);
-    printf(" pos_end:%d\n", max_pos_e);
     char *current_word = (char *)
     calloc(max_pos_e - max_pos_s + 2, sizeof(char));
     for (int j = max_pos_s; j <= max_pos_e; j++) {
@@ -112,7 +110,7 @@ int q_id, size_t current_procs_numb) {
     }
     current_word[max_pos_e-max_pos_s + 1] ='\0';
     message_buff q_buff = {1, ""};
-    strcpy(q_buff.mtext, current_word);
+    snprintf(q_buff.mtext, strlen(current_word) + 1, "%s", current_word);
 
     if (msgsnd(q_id, (struct msgbuf *) &q_buff,
     strlen(q_buff.mtext) + 1, 0) == -1) {
@@ -165,13 +163,11 @@ char *find_longest_sequence(char *array, size_t size, size_t mlen) {
                 free(array);
                 return NULL;
             }
-
-            strcpy(longest_word, q_buff.mtext);
+            snprintf(longest_word, strlen(q_buff.mtext) + 1, "%s", q_buff.mtext);
             max_len = strlen(q_buff.mtext);
         }
     }
 
-    printf("%s", longest_word);
     free_array(array, size);
     return longest_word;
 }
