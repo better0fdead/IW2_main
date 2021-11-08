@@ -3,7 +3,7 @@
 
 
 typedef struct {
-    int16 mtype;
+    long mtype;
     char mtext[1100];
 } message_buff;
 
