@@ -25,8 +25,6 @@ char *input_array_from_file(const char *file_path, size_t *asize) {
         return NULL;
     }
     char *array = create_array(size);
-    printf("%zu\n", size);
-
     for (size_t i = 0; i < size; i++) {
         if (fscanf(ptr, "%c", &array[i]) != 1) {
             return NULL;

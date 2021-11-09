@@ -17,11 +17,14 @@ target_include_directories(array_search_forked PUBLIC libs/array_search_forked/i
 
 find_package(GTest REQUIRED)
 
-add_executable(main tests/tests.cpp)
-target_link_libraries(main GTest::gtest array_search)
+add_executable(test_normal tests/test_normal.cpp)
+target_link_libraries(test_normal GTest::gtest array_search)
 
-add_executable(test_stress tests/main.cpp)
-target_link_libraries(test_stress array_search_forked)
+add_executable(test_forked tests/tests_forked.cpp)
+target_link_libraries(test_forked GTest::gtest array_search_forked)
 
-add_executable(tests_forked tests/tests_forked.cpp)
-target_link_libraries(tests_forked GTest::gtest array_search_forked)
+add_executable(stress_test tests/stress_test_normal.cpp)
+target_link_libraries(stress_test array_search)
+
+add_executable(stress_test_forked tests/stress_test_forked.cpp)
+target_link_libraries(stress_test_forked array_search_forked)
