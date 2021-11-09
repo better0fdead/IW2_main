@@ -69,13 +69,13 @@ char *find_sequence(char *array, int size, int n) {
             }
         }
     }
-    char *current_word = (char *)
+    char *current_sequence = (char *)
     calloc(max_pos_e - max_pos_s + 2, sizeof(char));
     for (int j = max_pos_s; j <= max_pos_e; j++) {
-        current_word[j - max_pos_s] = array[j];
+        current_sequence[j - max_pos_s] = array[j];
     }
-    current_word[max_pos_e-max_pos_s + 1] ='\0';
-    return current_word;
+    current_sequence[max_pos_e-max_pos_s + 1] ='\0';
+    return current_sequence;
 }
 
 char *find_longest_sequence(char *array, int size, int mlen) {

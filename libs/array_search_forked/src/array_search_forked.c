@@ -59,28 +59,28 @@ int q_id, size_t current_procs_numb) {
     int max_len = 0;
     int sum = 0;
     size_t part_size = size / number_of_procs;
-    size_t right_border = 0;
+    size_t r_bor = 0;
     size_t j = current_procs_numb * part_size;
-    size_t skipped_letters_of_word_on_border = 0;
+    size_t skip_let = 0;
 
     if (current_procs_numb != number_of_procs - 1) {
-        right_border = (current_procs_numb + 1) * part_size;
+        r_bor = (current_procs_numb + 1) * part_size;
     } else {
-        right_border = size;
+        r_bor = size;
     }
     if (j != 0) {
         while (((array[j] - '0') > -1) && ((array[j] - '0') < 10)) {
             j++;
-            skipped_letters_of_word_on_border++;
+            skip_let++;
         }
         j++;
-        skipped_letters_of_word_on_border++;
+        skip_let++;
     }
     if (current_procs_numb == number_of_procs - 1) {
-        skipped_letters_of_word_on_border = 0;
+        skip_let = 0;
     }
 
-    while (j < right_border + skipped_letters_of_word_on_border) {
+    while (j < r_bor + skip_let) {
         if (((array[j] - '0') > -1) && ((array[j] - '0') < 10)) {
             if (seq_start == 0) {
                 seq_start = 1;
@@ -103,23 +103,23 @@ int q_id, size_t current_procs_numb) {
         }
         j++;
     }
-    char *current_word = (char *)
+    char *current_sequence = (char *)
     calloc(max_pos_e - max_pos_s + 2, sizeof(char));
     for (int j = max_pos_s; j <= max_pos_e; j++) {
-        current_word[j - max_pos_s] = array[j];
+        current_sequence[j - max_pos_s] = array[j];
     }
-    current_word[max_pos_e-max_pos_s + 1] ='\0';
+    current_sequence[max_pos_e-max_pos_s + 1] ='\0';
     message_buff q_buff = {1, ""};
-    snprintf(q_buff.mtext, strlen(current_word) + 1, "%s", current_word);
+    snprintf(q_buff.mtext, strlen(current_sequence) + 1, "%s", current_sequence);
 
     if (msgsnd(q_id, (struct msgbuf *) &q_buff,
     strlen(q_buff.mtext) + 1, 0) == -1) {
         free(array);
-        free(current_word);
+        free(current_sequence);
         exit(1);
     }
     free(array);
-    free(current_word);
+    free(current_sequence);
     exit(1);
 }
 
@@ -146,7 +146,7 @@ char *find_longest_sequence(char *array, int size, int mlen) {
             return NULL;
         }
     }
-    char *longest_word = (char *) malloc( size * sizeof(char));
+    char *longest_sequence = (char *) malloc( size * sizeof(char));
     size_t max_len = 0;
     for (size_t i = 0; i < number_of_procs; ++i) {
         message_buff q_buff;
@@ -160,19 +160,19 @@ char *find_longest_sequence(char *array, int size, int mlen) {
         }
 
         if (max_len < strlen(q_buff.mtext)) {
-            free(longest_word);
-            longest_word = (char *) malloc(size * sizeof(char));
+            free(longest_sequence);
+            longest_sequence = (char *) malloc(size * sizeof(char));
 
-            if (longest_word == NULL) {
+            if (longest_sequence == NULL) {
                 free(array);
                 return NULL;
             }
-            snprintf(longest_word,
+            snprintf(longest_sequence,
             strlen(q_buff.mtext) + 1, "%s", q_buff.mtext);
             max_len = strlen(q_buff.mtext);
         }
     }
 
     free_array(array, size);
-    return longest_word;
+    return longest_sequence;
 }
