@@ -9,12 +9,9 @@ TEST(find_longest_sequence, find_longest_sequence) {
     char *mat_exp = input_array_from_file("./test_data/test.txt", &size);
     char * result  = find_longest_sequence(mat_exp, size, 4);
     int flag = 1;
-    for(int i = 0; i < 3; i++)
+    if (result[0] == '1')
     {
-        if (result[i] != '1')
-        {
-            flag = 0;
-        }
+        flag = 1;
     }
     free(result);
     EXPECT_EQ(flag, 1);
