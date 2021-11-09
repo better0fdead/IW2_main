@@ -14,8 +14,8 @@ extern "C" {
 #include <stdint.h>
 
 char *create_array(size_t size);
-char *input_array_from_file(const char *path, size_t *asize);
-char *find_longest_sequence(char *array, size_t size, size_t mlen);
+char *input_array_from_file(const char *path, int *asize);
+char *find_longest_sequence(char *array, int size, int mlen);
 #ifdef __cplusplus
 }
 #endif

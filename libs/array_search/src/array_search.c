@@ -10,13 +10,12 @@ char *create_array(size_t size) {
     return array;
 }
 
-char *input_array_from_file(const char *file_path, size_t *asize) {
+char *input_array_from_file(const char *file_path, int *asize) {
     if (file_path == NULL) {
         return NULL;
     }
     FILE *ptr = fopen(file_path, "r");
     if (ptr == NULL) {
-        printf("HUI");
         return NULL;
     }
     size_t size;
@@ -27,6 +26,8 @@ char *input_array_from_file(const char *file_path, size_t *asize) {
     char *array = create_array(size);
     for (size_t i = 0; i < size; i++) {
         if (fscanf(ptr, "%c", &array[i]) != 1) {
+            fclose(ptr);
+            free(array);
             return NULL;
         }
     }
@@ -36,7 +37,7 @@ char *input_array_from_file(const char *file_path, size_t *asize) {
     return array;
 }
 
-char *find_sequence(char *array, size_t size, int n) {
+char *find_sequence(char *array, int size, int n) {
     int seq_start = 0;
     int pos_start = 0;
     int pos_end = 0;
@@ -77,8 +78,12 @@ char *find_sequence(char *array, size_t size, int n) {
     return current_word;
 }
 
-char *find_longest_sequence(char *array, size_t size, size_t mlen) {
+char *find_longest_sequence(char *array, int size, int mlen) {
     if (array == NULL) {
+        return NULL;
+    }
+    if (mlen < 0 || size < 0) {
+        free_array(array);
         return NULL;
     }
     char * longest_string = find_sequence(array, size, mlen);

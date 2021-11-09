@@ -13,8 +13,8 @@ extern "C" {
 #include <sys/msg.h>
 
 char *create_array(size_t size);
-char *input_array_from_file(const char *file_path, size_t *asize);
-char *find_longest_sequence(char *array, size_t size, size_t mlen);
+char *input_array_from_file(const char *file_path, int *asize);
+char *find_longest_sequence(char *array, int size, int mlen);
 #ifdef __cplusplus
 }
 #endif

@@ -8,7 +8,7 @@
 
 int main(int argc, char **argv) {
     double timer = 0;
-    size_t size;
+    int size;
     char *mat_exp = input_array_from_file("./test_data/stress_test.txt", &size);
     clock_t begin = clock();
     char * result  = find_longest_sequence(mat_exp, size, 4);

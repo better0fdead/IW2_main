@@ -17,7 +17,7 @@ char *create_array(size_t size) {
     return array;
 }
 
-char *input_array_from_file(const char *file_path, size_t *asize) {
+char *input_array_from_file(const char *file_path, int *asize) {
     if (file_path == NULL) {
         return NULL;
     }
@@ -34,6 +34,8 @@ char *input_array_from_file(const char *file_path, size_t *asize) {
 
     for (size_t i = 0; i < size; i++) {
         if (fscanf(ptr, "%c", &array[i]) != 1) {
+            free(array);
+            fclose(ptr);
             return NULL;
         }
     }
@@ -121,12 +123,17 @@ int q_id, size_t current_procs_numb) {
     exit(1);
 }
 
-char *find_longest_sequence(char *array, size_t size, size_t mlen) {
+char *find_longest_sequence(char *array, int size, int mlen) {
     size_t number_of_procs = sysconf(_SC_NPROCESSORS_ONLN);
     int status = 0;
     key_t key = IPC_PRIVATE;
     int q_id = msgget(key, 0660 | IPC_CREAT);
     pid_t pids[number_of_procs];
+
+    if (size < 0 || mlen < 0 || array == NULL) {
+        free(array);
+        return NULL;
+    }
 
     for (size_t k = 0; k < number_of_procs; ++k) {
         pids[k] = fork();
@@ -139,7 +146,7 @@ char *find_longest_sequence(char *array, size_t size, size_t mlen) {
             return NULL;
         }
     }
-
+    
     char *longest_word = (char *) malloc( size * sizeof(char));
     size_t max_len = 0;
     for (size_t i = 0; i < number_of_procs; ++i) {
