@@ -68,6 +68,19 @@ TEST(input_array_from_file, empty_file) {
     EXPECT_EQ(flag, 1);
 }
 
+TEST(input_array_from_file, empty_path) {
+    int size;
+    int flag;
+    flag = 0;
+    char *path = NULL;
+    char *mat_exp = input_array_from_file(path, &size);
+    if (mat_exp == NULL)
+    {
+        flag = 1;
+    }
+    EXPECT_EQ(flag, 1);
+}
+
 TEST(input_array_from_file, file_with_no_chars) {
     int size;
     int flag;
