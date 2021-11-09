@@ -22,10 +22,13 @@ jobs:
         run: cpplint --filter="-legal/copyright,-build/include_subdir,-readability/casting,-runtime/arrays" libs/array_search/src/* libs/array_search/include/* libs/array_search_forked/src/* libs/array_search_forked/include/* && cppcheck libs/array_search/src/* libs/array_search/include/* libs/array_search_forked/src/* libs/array_search_forked/include/*
         
       - name: tests_under_valgrind
-        run: valgrind --leak-check=full --track-origins=yes ./main && valgrind --leak-check=full --track-origins=yes --child-silent-after-fork=yes  ./tests_forked
+        run: valgrind --leak-check=full --track-origins=yes ./test_normal && valgrind --leak-check=full --track-origins=yes --child-silent-after-fork=yes  ./test_forked
 
       - name: code coverage
         run: lcov -t "HW-2" -o coverage.txt -c -d . && cp coverage.txt ../
+        
+      - name: stress_tests_avg_time
+        run: ./stress_test && ./stress_test_forked
 
       - name: upload coverage to Codecov
         uses: codecov/codecov-action@v1
