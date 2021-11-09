@@ -146,7 +146,6 @@ char *find_longest_sequence(char *array, int size, int mlen) {
             return NULL;
         }
     }
-    
     char *longest_word = (char *) malloc( size * sizeof(char));
     size_t max_len = 0;
     for (size_t i = 0; i < number_of_procs; ++i) {
