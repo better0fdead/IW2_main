@@ -110,7 +110,8 @@ int q_id, size_t current_procs_numb) {
     }
     current_sequence[max_pos_e-max_pos_s + 1] ='\0';
     message_buff q_buff = {1, ""};
-    snprintf(q_buff.mtext, strlen(current_sequence) + 1, "%s", current_sequence);
+    snprintf(q_buff.mtext,
+    strlen(current_sequence) + 1, "%s", current_sequence);
 
     if (msgsnd(q_id, (struct msgbuf *) &q_buff,
     strlen(q_buff.mtext) + 1, 0) == -1) {
